@@ -1,25 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-// Categorized skills
-const skillCategories = [
-  {
-    category: "Programming Languages",
-    skills: ["TypeScript", "JavaScript", "Python", "PHP", "C"]
-  },
-  {
-    category: "Frameworks / Libraries",
-    skills: ["Next.js", "React", "Express", "TailwindCSS"]
-  },
-  {
-    category: "Databases",
-    skills: ["MySQL", "MongoDB", "Firebase", "Supabase"]
-  },
-  {
-    category: "Tools",
-    skills: ["BitBucket", "GitHub", "Vercel", "Selenium", "Postman", "Node"]
-  }
-];
+import { FiCode, FiBriefcase, FiAward } from "react-icons/fi";
 
 const About = () => {
   const ref = useRef(null);
@@ -29,207 +10,177 @@ const About = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6 },
-    },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
   };
-
-  const categoryVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  // Count total skills for stats
-  const totalSkills = skillCategories.reduce((acc, category) => acc + category.skills.length, 0);
 
   return (
-    <section
-      id="about"
-      className="min-h-screen relative py-20 bg-gradient-to-b from-[#30052F] to-[#100210] text-white"
-    >
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#5E0A5C]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FF69B4]/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 py-16 relative z-10">
+    <section id="about" className="min-h-screen py-24 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-sm uppercase tracking-wider text-[#FF69B4] inline-block">
-            About Me
+          <span className="inline-block text-[#638ECB] font-semibold tracking-wider text-sm mb-2">
+            ABOUT ME
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#395886]">
+            A Passionate Full-Stack Developer
           </h2>
-          <h3 className="text-4xl font-bold mt-2 mb-6">
-            <span className="relative">
-              Passionate Developer
-              <span className="absolute -bottom-2 left-0 right-0 mx-auto w-24 h-1 bg-gradient-to-r from-[#5E0A5C] to-[#FF69B4]"></span>
-            </span>
-          </h3>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#638ECB] to-[#8AAEE0] mx-auto mt-4"></div>
         </motion.div>
-        
+
+        {/* Main Content */}
         <div
           ref={ref}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
-          {/* Left column - About text */}
+          {/* Left Column - About Text */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="flex flex-col space-y-6 h-full"
+            className="space-y-6"
           >
+            <motion.div variants={itemVariants}>
+              <h3 className="text-2xl font-bold text-[#395886] mb-4">
+                Hi, I'm Kaveesha Dissanayake
+              </h3>
+              <p className="text-lg text-[#638ECB] leading-relaxed">
+                A dedicated and versatile Software Engineer with a strong
+                passion for both backend and frontend development. I'm currently
+                pursuing a B.Sc (Hons) in Computing & Information Systems at
+                SUSL, combining academic excellence with practical industry
+                experience.
+              </p>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <p className="text-lg text-[#638ECB] leading-relaxed">
+                I thrive in dynamic environments and quickly adapt to new
+                technologies. My full-stack development expertise spans
+                React.js, Node.js, Express.js, Next.js, JavaScript, MongoDB,
+                MySQL, and more.
+              </p>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <p className="text-lg text-[#638ECB] leading-relaxed">
+                Beyond coding, I enjoy collaborating with teams to deliver
+                impactful results and actively contributing to the tech
+                community through organizations like the IEEE Student Branch and
+                the Society of Computer Sciences at SUSL.
+              </p>
+            </motion.div>
+
+            {/* Stats */}
             <motion.div
               variants={itemVariants}
-              className="bg-[#30052F]/50 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/10 h-full flex flex-col justify-between relative overflow-hidden"
+              className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t-2 border-[#D5DEEF]"
             >
-              {/* Decorative elements */}
-              <div className="absolute -right-12 -top-12 w-40 h-40 bg-gradient-to-br from-[#5E0A5C]/20 to-transparent rounded-full blur-md"></div>
-              <div className="absolute -left-6 -bottom-6 w-32 h-32 bg-gradient-to-tr from-[#FF69B4]/20 to-transparent rounded-full blur-md"></div>
-              
-              {/* Big highlight text */}
-              <motion.div 
-                variants={itemVariants}
-                className="mb-6"
-              >
-                <h2 className="text-5xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                  Code. Create.
-                </h2>
-                <h2 className="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#FF69B4] to-[#5E0A5C]">
-                  Innovate.
-                </h2>
-              </motion.div>
-
-              <div className="space-y-4 relative z-10">
-                <motion.p variants={itemVariants} className="text-lg text-gray-300">
-                  Hi, I'm <span className="text-white font-semibold">Kaveesha Dissanayake</span>, a passionate developer with expertise in
-                  building modern web applications. I specialize in React.js , Express.js , Node.js
-                  JavaScript, and Tailwind CSS, and I love creating user-friendly , fully functional
-                  and visually appealing interfaces.
-                </motion.p>
-
-                <motion.p variants={itemVariants} className="text-lg text-gray-300">
-                  When I'm not developing, I enjoy travelling and reading. Let's build
-                  something amazing together!
-                </motion.p>
-                
-                {/* Experience Timeline */}
-                <motion.div variants={itemVariants} className="mt-6 mb-6">
-                  <h4 className="text-lg font-semibold mb-4 flex items-center">
-                    <span className="w-1 h-4 bg-[#FF69B4] mr-2 rounded-full"></span>
-                    Experience
-                  </h4>
-                  <div className="space-y-3 relative before:absolute before:left-1.5 before:top-1 before:bottom-1 before:w-0.5 before:bg-gray-600">
-                    <div className="flex gap-3 ml-2">
-                      <div className="mt-1 w-2 h-2 rounded-full bg-[#FF69B4] shrink-0"></div>
-                      <div>
-                        <p className="font-medium">Full Stack Developer Intern</p>
-                        <p className="text-sm text-gray-400">Affno Asia Pacific Pvt Ltd • 2024 - 2025</p>
-                      </div>
-                    </div>
-                    {/* <div className="flex gap-3 ml-2">
-                      <div className="mt-1 w-2 h-2 rounded-full bg-[#FF69B4] shrink-0"></div>
-                      <div>
-                        <p className="font-medium">Frontend Developer</p>
-                        <p className="text-sm text-gray-400">Company Name • 2020 - 2022</p>
-                      </div>
-                    </div> */}
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  variants={itemVariants}
-                  className="grid grid-cols-3 gap-4 mt-6"
-                >
-                  <div className="flex flex-col items-center p-4 bg-white/5 rounded-lg">
-                    <span className="text-3xl font-bold text-[#FF69B4]">{totalSkills}</span>
-                    <span className="text-sm mt-1">Skills</span>
-                  </div>
-                  <div className="flex flex-col items-center p-4 bg-white/5 rounded-lg">
-                    <span className="text-3xl font-bold text-[#FF69B4]">2+</span>
-                    <span className="text-sm mt-1">Years</span>
-                  </div>
-                  <div className="flex flex-col items-center p-4 bg-white/5 rounded-lg">
-                    <span className="text-3xl font-bold text-[#FF69B4]">20+</span>
-                    <span className="text-sm mt-1">Projects</span>
-                  </div>
-                </motion.div>
+              <div className="text-center">
+                <p className="text-3xl font-bold text-[#638ECB]">1.5+</p>
+                <p className="text-sm text-[#395886] mt-2 font-medium">
+                  Years Exp
+                </p>
               </div>
-
-              <motion.div variants={itemVariants} className="flex space-x-6 mt-8">
-                <a
-                  href="#contact"
-                  className="px-6 py-3 bg-gradient-to-r from-[#5E0A5C] to-[#FF69B4] text-white font-bold rounded-lg hover:transform hover:scale-105 transition-all duration-300 shadow-lg flex-1 text-center"
-                >
-                  Contact Me
-                </a>
-                <a
-                  href="#projects"
-                  className="px-6 py-3 bg-transparent border border-[#5E0A5C] text-white font-bold rounded-lg hover:bg-[#5E0A5C]/10 transition-all duration-300 flex-1 text-center"
-                >
-                  View Projects
-                </a>
-              </motion.div>
+              <div className="text-center">
+                <p className="text-3xl font-bold text-[#638ECB]">8+</p>
+                <p className="text-sm text-[#395886] mt-2 font-medium">
+                  Tech Skills
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-3xl font-bold text-[#638ECB]">10+</p>
+                <p className="text-sm text-[#395886] mt-2 font-medium">
+                  Projects
+                </p>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* Right column - Skills */}
+          {/* Right Column - Info Cards */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="bg-[#30052F]/50 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/10 h-full"
+            className="space-y-6"
           >
-            <motion.h3
-              variants={itemVariants}
-              className="text-2xl font-bold mb-6"
-            >
-              My Technical Skills
-            </motion.h3>
-
+            {/* Current Role */}
             <motion.div
-              variants={categoryVariants}
-              className="space-y-6"
+              variants={itemVariants}
+              className="bg-gradient-to-br from-[#F0F3FA] to-[#D5DEEF] rounded-lg p-6 border border-[#B1C9EF]/50"
             >
-              {skillCategories.map((category) => (
-                <motion.div key={category.category} variants={itemVariants} className="mb-4">
-                  <h4 className="text-lg font-semibold mb-3 text-[#FF69B4] flex items-center">
-                    <span className="w-1 h-4 bg-[#FF69B4] mr-2 rounded-full"></span>
-                    {category.category}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-[#638ECB] rounded-lg flex items-center justify-center text-white">
+                  <FiBriefcase size={24} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#395886] text-lg mb-1">
+                    Current Position
                   </h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {category.skills.map((skill) => (
-                      <motion.div
-                        key={skill}
-                        variants={itemVariants}
-                        className="bg-white/5 hover:bg-white/10 rounded-lg p-3 transition-all duration-300 border border-white/10 hover:border-[#5E0A5C]/40 text-center"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <span className="text-sm font-medium">{skill}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+                  <p className="text-[#638ECB] font-medium">
+                    Associate Software Engineer
+                  </p>
+                  <p className="text-sm text-[#395886] opacity-75">
+                    Affno Asia Pacific • Mar 2025 - Present
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Previous Experience */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-gradient-to-br from-[#F0F3FA] to-[#D5DEEF] rounded-lg p-6 border border-[#B1C9EF]/50"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-[#8AAEE0] rounded-lg flex items-center justify-center text-white">
+                  <FiCode size={24} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#395886] text-lg mb-1">
+                    Software Engineer Intern
+                  </h4>
+                  <p className="text-[#638ECB] font-medium">
+                    Affno Asia Pacific
+                  </p>
+                  <p className="text-sm text-[#395886] opacity-75">
+                    Aug 2024 - Mar 2025 • On-site
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Education */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-gradient-to-br from-[#F0F3FA] to-[#D5DEEF] rounded-lg p-6 border border-[#B1C9EF]/50"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-[#B1C9EF] rounded-lg flex items-center justify-center text-white">
+                  <FiAward size={24} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#395886] text-lg mb-1">
+                    Education
+                  </h4>
+                  <p className="text-[#638ECB] font-medium">
+                    B.Sc (Hons) Computing & Information Systems
+                  </p>
+                  <p className="text-sm text-[#395886] opacity-75">
+                    SUSL (Sri Lanka)
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

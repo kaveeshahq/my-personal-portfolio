@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -21,22 +21,34 @@ const Navbar = () => {
   }, [scrolled]);
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-[#30052F]/95 backdrop-blur-sm shadow-lg py-2" : "bg-transparent py-4"}`}>
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-[#F0F3FA]/95 backdrop-blur-sm shadow-lg py-3" : "bg-transparent py-4"}`}
+    >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link 
-          to="home" 
-          smooth={true} 
-          duration={500} 
-          className="cursor-pointer text-white font-bold text-xl hover:text-[#5E0A5C] transition-colors"
+        <Link
+          to="home"
+          smooth={true}
+          duration={500}
+          className="cursor-pointer font-bold text-xl hover:text-[#395886] transition-colors"
         >
-          <span className="bg-gradient-to-r from-[#5E0A5C] to-[#FF69B4] bg-clip-text text-transparent text-2xl">kaveesha-hq</span>
+          <span className="bg-gradient-to-r from-[#395886] to-[#638ECB] bg-clip-text text-transparent text-2xl font-bold">
+            {"</"}
+          </span>
+          <span
+            className={`${scrolled ? "text-[#395886]" : "text-[#395886]"} transition-colors`}
+          >
+            kaveeshahq
+          </span>
+          <span className="bg-gradient-to-r from-[#638ECB] to-[#395886] bg-clip-text text-transparent text-2xl font-bold">
+            {">"}
+          </span>
         </Link>
 
         {/* Mobile menu button */}
         <div className="md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-white focus:outline-none"
+            className={`${scrolled ? "text-[#395886]" : "text-white"} focus:outline-none transition-colors`}
           >
             <svg
               className="w-6 h-6"
@@ -66,29 +78,72 @@ const Navbar = () => {
 
         {/* Desktop navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="home" smooth={true} duration={500} className="cursor-pointer text-white hover:text-[#FF69B4] transition-all hover:scale-105">
+          <Link
+            to="home"
+            smooth={true}
+            duration={500}
+            className={`cursor-pointer transition-all hover:scale-105 ${scrolled ? "text-[#395886] hover:text-[#638ECB]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
             Home
           </Link>
-          <Link to="about" smooth={true} duration={500} className="cursor-pointer text-white hover:text-[#FF69B4] transition-all hover:scale-105">
+          <Link
+            to="about"
+            smooth={true}
+            duration={500}
+            className={`cursor-pointer transition-all hover:scale-105 ${scrolled ? "text-[#395886] hover:text-[#638ECB]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
             About
           </Link>
-          <Link to="projects" smooth={true} duration={500} className="cursor-pointer text-white hover:text-[#FF69B4] transition-all hover:scale-105">
-            Projects
+          <Link
+            to="experience"
+            smooth={true}
+            duration={500}
+            className={`cursor-pointer transition-all hover:scale-105 ${scrolled ? "text-[#395886] hover:text-[#638ECB]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
+            Experience
           </Link>
-          <Link to="contact" smooth={true} duration={500} className="cursor-pointer text-white hover:text-[#FF69B4] transition-all hover:scale-105">
+          <Link
+            to="skills"
+            smooth={true}
+            duration={500}
+            className={`cursor-pointer transition-all hover:scale-105 ${scrolled ? "text-[#395886] hover:text-[#638ECB]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
+            Skills
+          </Link>
+          <Link
+            to="certifications"
+            smooth={true}
+            duration={500}
+            className={`cursor-pointer transition-all hover:scale-105 ${scrolled ? "text-[#395886] hover:text-[#638ECB]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
+            Certifications
+          </Link>
+          <Link
+            to="contact"
+            smooth={true}
+            duration={500}
+            className={`cursor-pointer transition-all hover:scale-105 ${scrolled ? "text-[#395886] hover:text-[#638ECB]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
             Contact
           </Link>
         </div>
 
         {/* Social links */}
         <div className="hidden md:flex items-center space-x-4">
-          <a href="https://www.facebook.com/kaveeshahq/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#4267B2] transition-all hover:scale-125">
-            <FaFacebook size={20} />
-          </a>
-          <a href="https://www.linkedin.com/in/kaveeshahq/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0A66C2] transition-all hover:scale-125">
+          <a
+            href="https://www.linkedin.com/in/kaveeshahq/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`transition-all hover:scale-125 ${scrolled ? "text-[#638ECB] hover:text-[#395886]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
             <FaLinkedin size={20} />
           </a>
-          <a href="https://github.com/kaveeshahq" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-300 transition-all hover:scale-125">
+          <a
+            href="https://github.com/kaveeshahq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`transition-all hover:scale-125 ${scrolled ? "text-[#638ECB] hover:text-[#395886]" : "text-[#395886] hover:text-[#638ECB]"}`}
+          >
             <FaGithub size={20} />
           </a>
         </div>
@@ -96,8 +151,10 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden absolute w-full bg-[#30052F]/95 backdrop-blur-sm transition-all duration-300 ${
-          menuOpen ? "max-h-screen py-4 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        className={`md:hidden absolute w-full bg-[#F0F3FA]/95 backdrop-blur-sm transition-all duration-300 ${
+          menuOpen
+            ? "max-h-screen py-4 opacity-100"
+            : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
         <div className="container mx-auto px-4 flex flex-col space-y-4">
@@ -105,7 +162,7 @@ const Navbar = () => {
             to="home"
             smooth={true}
             duration={500}
-            className="cursor-pointer text-white hover:text-[#FF69B4] py-2"
+            className="cursor-pointer text-[#395886] hover:text-[#638ECB] py-2 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
             Home
@@ -114,37 +171,62 @@ const Navbar = () => {
             to="about"
             smooth={true}
             duration={500}
-            className="cursor-pointer text-white hover:text-[#FF69B4] py-2"
+            className="cursor-pointer text-[#395886] hover:text-[#638ECB] py-2 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
             About
           </Link>
           <Link
-            to="projects"
+            to="experience"
             smooth={true}
             duration={500}
-            className="cursor-pointer text-white hover:text-[#FF69B4] py-2"
+            className="cursor-pointer text-[#395886] hover:text-[#638ECB] py-2 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
-            Projects
+            Experience
+          </Link>
+          <Link
+            to="skills"
+            smooth={true}
+            duration={500}
+            className="cursor-pointer text-[#395886] hover:text-[#638ECB] py-2 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            Skills
+          </Link>
+          <Link
+            to="certifications"
+            smooth={true}
+            duration={500}
+            className="cursor-pointer text-[#395886] hover:text-[#638ECB] py-2 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            Certifications
           </Link>
           <Link
             to="contact"
             smooth={true}
             duration={500}
-            className="cursor-pointer text-white hover:text-[#FF69B4] py-2"
+            className="cursor-pointer text-[#395886] hover:text-[#638ECB] py-2 transition-colors"
             onClick={() => setMenuOpen(false)}
           >
             Contact
           </Link>
           <div className="flex space-x-4 py-2">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#4267B2]">
-              <FaFacebook size={20} />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0A66C2]">
+            <a
+              href="https://www.linkedin.com/in/kaveeshahq/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#638ECB] hover:text-[#395886] transition-colors"
+            >
               <FaLinkedin size={20} />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-300">
+            <a
+              href="https://github.com/kaveeshahq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#638ECB] hover:text-[#395886] transition-colors"
+            >
               <FaGithub size={20} />
             </a>
           </div>
