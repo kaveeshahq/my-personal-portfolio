@@ -1,0 +1,241 @@
+@use "../../styles/abstracts" as *;
+
+.contact {
+  @include section;
+}
+
+.inner {
+  @include container;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 48px;
+  align-items: start;
+
+  @include respond(lg) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ---- Info ---- */
+.info {
+  padding: 40px;
+  border-radius: $radius-lg;
+  background: linear-gradient(150deg, $dark 0%, $dark-2 100%);
+  color: $light;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 173, 181, 0.4), transparent 70%);
+  }
+}
+.infoTitle {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  position: relative;
+}
+.infoText {
+  color: rgba(238, 238, 238, 0.7);
+  margin-top: 10px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+.card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: $radius-sm;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    transform 0.3s $ease,
+    background 0.3s $ease,
+    border-color 0.3s $ease;
+
+  &:hover {
+    transform: translateX(6px);
+    background: rgba(0, 173, 181, 0.14);
+    border-color: rgba(0, 173, 181, 0.5);
+  }
+}
+.cardIcon {
+  @include flex-center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: $accent-gradient;
+  color: #fff;
+  font-size: 1.2rem;
+}
+.cardLabel {
+  display: block;
+  font-size: 0.78rem;
+  color: rgba(238, 238, 238, 0.65);
+}
+.cardValue {
+  display: block;
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.socials {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  position: relative;
+
+  a {
+    @include flex-center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 1.2rem;
+    transition:
+      transform 0.3s $ease,
+      background 0.3s $ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      background: $accent;
+    }
+  }
+}
+
+/* ---- Form ---- */
+.formWrap {
+  height: 100%;
+}
+.form {
+  @include card;
+  padding: 40px;
+  border-radius: $radius-lg;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+
+  @include respond(sm) {
+    padding: 26px;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+
+  @include respond(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  position: relative;
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 18px 16px 8px;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: $dark;
+    outline: none;
+    resize: vertical;
+    transition:
+      border-color 0.3s $ease,
+      box-shadow 0.3s $ease,
+      background 0.3s $ease;
+  }
+
+  textarea {
+    min-height: 130px;
+  }
+
+  label {
+    position: absolute;
+    left: 16px;
+    top: 15px;
+    font-size: 1rem;
+    color: $text-muted;
+    pointer-events: none;
+    transition: all 0.22s $ease;
+  }
+
+  /* Float label up when focused or filled */
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label,
+  textarea:focus ~ label,
+  textarea:not(:placeholder-shown) ~ label {
+    top: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: $accent;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: $accent;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 173, 181, 0.12);
+  }
+}
+
+.submit {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  border-radius: 999px;
+  background: $accent-gradient;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: $shadow-accent;
+  transition:
+    transform 0.3s $ease,
+    box-shadow 0.3s $ease;
+
+  svg {
+    transition: transform 0.3s $ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 50px -14px rgba(0, 173, 181, 0.6);
+    svg {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.submitSent {
+  background: #1f9d54;
+}

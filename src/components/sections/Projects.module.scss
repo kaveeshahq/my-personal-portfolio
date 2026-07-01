@@ -1,0 +1,258 @@
+@use "../../styles/abstracts" as *;
+
+.projects {
+  @include section;
+}
+
+.inner {
+  @include container;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+
+  @include respond(lg) {
+    gap: 70px;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 60px;
+
+  @include respond(lg) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.reverse {
+  .media {
+    order: 2;
+  }
+  .content {
+    order: 1;
+  }
+
+  @include respond(lg) {
+    .media {
+      order: 0;
+    }
+    .content {
+      order: 0;
+    }
+  }
+}
+
+/* ---- Media ---- */
+.media {
+  position: relative;
+}
+
+.mediaLink {
+  display: block;
+}
+
+.imgWrap {
+  position: relative;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow;
+  border: 1px solid $border;
+  aspect-ratio: 16 / 10.5;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(0, 173, 181, 0.12),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s $ease;
+  }
+
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
+    .img {
+      transform: scale(1.06);
+    }
+    .overlay {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+}
+
+.img {
+  width: 100%;
+  height: 112%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.6s $ease;
+  will-change: transform;
+}
+
+.overlay {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  @include flex-center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #fff;
+  color: $dark;
+  font-size: 1.5rem;
+  box-shadow: $shadow;
+  opacity: 0;
+  transform: translate(-8px, 8px);
+  transition:
+    opacity 0.4s $ease,
+    transform 0.4s $ease,
+    background 0.3s $ease,
+    color 0.3s $ease;
+
+  &:hover {
+    background: $accent;
+    color: #fff;
+  }
+}
+
+/* ---- Content ---- */
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.index {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 1rem;
+  color: $accent;
+  margin-bottom: 14px;
+}
+.featured {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 173, 181, 0.12);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.desc {
+  font-size: 1.03rem;
+  color: $text-muted;
+  max-width: 46ch;
+  margin-bottom: 22px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+
+  li {
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid $border;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: $dark-2;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+
+  @include respond(sm) {
+    flex-wrap: wrap;
+  }
+}
+
+.ghost,
+.solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    transform 0.3s $ease,
+    box-shadow 0.3s $ease,
+    background 0.3s $ease,
+    color 0.3s $ease,
+    border-color 0.3s $ease;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid $border;
+  color: $dark;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: $accent;
+    color: $accent;
+  }
+}
+
+.solid {
+  background: $accent-gradient;
+  color: #fff;
+  box-shadow: $shadow-accent;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 50px -14px rgba(0, 173, 181, 0.6);
+  }
+}
+
+/* ---- More ---- */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: 90px;
+}
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 32px;
+  border-radius: 999px;
+  background: $dark;
+  color: #fff;
+  font-weight: 600;
+  transition:
+    transform 0.3s $ease,
+    background 0.3s $ease,
+    box-shadow 0.3s $ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: $accent;
+    box-shadow: $shadow-accent;
+  }
+}

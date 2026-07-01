@@ -1,0 +1,240 @@
+@use "../../styles/abstracts" as *;
+
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  transition: all 0.4s $ease;
+  padding-block: 22px;
+}
+
+.scrolled {
+  padding-block: 12px;
+  @include glass(rgba(255, 255, 255, 0.72));
+  border-bottom: 1px solid $border;
+  box-shadow: $shadow-sm;
+}
+
+.nav {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logoMark {
+  @include flex-center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: $accent-gradient;
+  color: #fff;
+  font-family: $font-display;
+  font-weight: 700;
+  box-shadow: $shadow-accent;
+}
+.logoText {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: $dark;
+}
+.dot {
+  color: $accent;
+}
+
+/* Desktop links */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  @include respond(lg) {
+    display: none;
+  }
+}
+
+.link {
+  position: relative;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: $dark-2;
+  transition: color 0.3s $ease;
+
+  &:hover {
+    color: $accent;
+  }
+  &:hover .underline,
+  &.linkActive .underline {
+    transform: scaleX(1);
+  }
+}
+
+.linkActive {
+  color: $accent;
+}
+
+.underline {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: $accent;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s $ease;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  @include respond(lg) {
+    display: none;
+  }
+}
+
+.social {
+  @include flex-center;
+  font-size: 1.2rem;
+  color: $dark-2;
+  transition:
+    color 0.3s $ease,
+    transform 0.3s $ease;
+
+  &:hover {
+    color: $accent;
+    transform: translateY(-3px);
+  }
+}
+
+.cta {
+  padding: 11px 22px;
+  border-radius: 999px;
+  background: $dark;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition:
+    transform 0.3s $ease,
+    box-shadow 0.3s $ease,
+    background 0.3s $ease;
+
+  &:hover {
+    background: $accent;
+    transform: translateY(-2px);
+    box-shadow: $shadow-accent;
+  }
+}
+
+/* Burger */
+.burger {
+  display: none;
+  font-size: 1.8rem;
+  color: $dark;
+  z-index: 1001;
+
+  @include respond(lg) {
+    display: block;
+  }
+}
+
+/* Mobile menu */
+.mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  @include glass(rgba(255, 255, 255, 0.92));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 40px;
+  gap: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-16px);
+  transition:
+    opacity 0.4s $ease,
+    transform 0.4s $ease,
+    visibility 0.4s;
+
+  @media (min-width: 1025px) {
+    display: none;
+  }
+}
+
+.mobileOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+
+  .mobileLinks li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  li {
+    opacity: 0;
+    transform: translateX(-24px);
+    transition:
+      opacity 0.5s $ease,
+      transform 0.5s $ease;
+  }
+
+  button {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-family: $font-display;
+    font-size: clamp(2rem, 9vw, 3rem);
+    font-weight: 700;
+    color: $dark;
+    transition: color 0.3s $ease;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+}
+
+.mobileActive {
+  color: $accent !important;
+}
+
+.mobileIndex {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $accent;
+  font-family: $font-body;
+}
+
+.mobileSocials {
+  display: flex;
+  gap: 24px;
+  font-size: 1.6rem;
+  color: $dark-2;
+
+  a:hover {
+    color: $accent;
+  }
+}

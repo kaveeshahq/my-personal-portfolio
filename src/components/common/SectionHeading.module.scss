@@ -1,0 +1,58 @@
+@use "../../styles/abstracts" as *;
+
+.heading {
+  margin-bottom: 72px;
+
+  @include respond(md) {
+    margin-bottom: 48px;
+  }
+}
+
+.center {
+  text-align: center;
+
+  .eyebrow {
+    justify-content: center;
+  }
+  .subtitle {
+    margin-inline: auto;
+  }
+}
+
+.left {
+  text-align: left;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-display;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $accent;
+  margin-bottom: 18px;
+}
+
+.line {
+  display: inline-block;
+  width: 34px;
+  height: 2px;
+  background: $accent;
+  border-radius: 2px;
+}
+
+.title {
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
+  font-weight: 700;
+  color: $dark;
+}
+
+.subtitle {
+  margin-top: 20px;
+  max-width: 620px;
+  font-size: 1.05rem;
+  color: $text-muted;
+}

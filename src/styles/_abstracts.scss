@@ -1,0 +1,114 @@
+@use "sass:map";
+
+/* ---------------------------------------------------------------- */
+/*  Palette                                                          */
+/* ---------------------------------------------------------------- */
+$dark: #222831; // primary dark (text)
+$dark-2: #393e46; // secondary dark
+$accent: #00adb5; // accent teal
+$accent-2: #21c9d1; // lighter teal (gradients)
+$accent-dk: #018a90; // deeper teal (hover)
+$light: #eeeeee; // light neutral
+$white: #ffffff;
+
+/* Semantic */
+$text: $dark;
+$text-muted: #5b636e;
+$border: rgba(34, 40, 49, 0.08);
+$bg-gradient: linear-gradient(
+  135deg,
+  #ffffff 0%,
+  #f5fbfc 28%,
+  #e6f6f8 58%,
+  #ffffff 100%
+);
+$accent-gradient: linear-gradient(135deg, #00adb5 0%, #21c9d1 100%);
+
+/* ---------------------------------------------------------------- */
+/*  Typography                                                       */
+/* ---------------------------------------------------------------- */
+$font-display: "Sora", system-ui, -apple-system, sans-serif;
+$font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+/* ---------------------------------------------------------------- */
+/*  Radius / shadow / layout                                        */
+/* ---------------------------------------------------------------- */
+$radius-sm: 14px;
+$radius: 22px;
+$radius-lg: 30px;
+
+$shadow-sm: 0 6px 24px rgba(34, 40, 49, 0.06);
+$shadow: 0 24px 60px -24px rgba(34, 40, 49, 0.22);
+$shadow-accent: 0 18px 40px -14px rgba(0, 173, 181, 0.45);
+
+$container: 1180px;
+$ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+/* ---------------------------------------------------------------- */
+/*  Breakpoints                                                     */
+/* ---------------------------------------------------------------- */
+$bp: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+@mixin respond($k) {
+  @media (max-width: map.get($bp, $k)) {
+    @content;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/*  Mixins                                                          */
+/* ---------------------------------------------------------------- */
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $container;
+  margin-inline: auto;
+  padding-inline: 32px;
+  @include respond(md) {
+    padding-inline: 20px;
+  }
+}
+
+@mixin section {
+  position: relative;
+  padding-block: 130px;
+  @include respond(lg) {
+    padding-block: 100px;
+  }
+  @include respond(md) {
+    padding-block: 80px;
+  }
+}
+
+@mixin glass($bg: rgba(255, 255, 255, 0.65)) {
+  background: $bg;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+@mixin card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@mixin gradient-text {
+  background: $accent-gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

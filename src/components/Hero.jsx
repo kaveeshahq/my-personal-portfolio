@@ -1,219 +1,174 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { TypeAnimation } from "react-type-animation";
-import { Link } from "react-scroll";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowDownRight, FiMail } from "react-icons/fi";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Magnetic from "./Magnetic";
+import Counter from "./Counter";
+import { scrollToSection } from "../lib/smoothScroll";
+
+const stats = [
+  { value: 10, suffix: "+", label: "Projects Shipped" },
+  { value: 1.5, suffix: "+", decimals: 1, label: "Years Experience" },
+  { value: 15, suffix: "+", label: "Technologies" },
+];
 
 const Hero = () => {
-  const canvasRef = useRef(null);
+  const root = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(".hero-anim", {
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.12,
+      }).from(
+        ".hero-orb",
+        { scale: 0.6, opacity: 0, duration: 1.4, ease: "power2.out" },
+        0,
+      );
 
-    const ctx = canvas.getContext("2d");
-    let animationFrameId;
-    let particles = [];
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
-    };
-
-    const initParticles = () => {
-      particles = [];
-      const particleCount = Math.floor(window.innerWidth * 0.03);
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5 + 0.5,
-          speedX: (Math.random() - 0.5) * 0.3,
-          speedY: (Math.random() - 0.5) * 0.3,
-          color: `rgba(57, 88, 134, ${Math.random() * 0.3 + 0.1})`,
-        });
-      }
-    };
-
-    const drawParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle) => {
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.fill();
-
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
-
-        particles.forEach((other) => {
-          const dx = particle.x - other.x;
-          const dy = particle.y - other.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(99, 142, 203, ${0.08 * (1 - distance / 150)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(other.x, other.y);
-            ctx.stroke();
-          }
-        });
-      });
-
-      animationFrameId = requestAnimationFrame(drawParticles);
-    };
-
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-    drawParticles();
-
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+      // Parallax the orbs on pointer move
+      const move = (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        gsap.to(".orb-1", { x: x * 40, y: y * 40, duration: 1 });
+        gsap.to(".orb-2", { x: x * -60, y: y * -30, duration: 1 });
+      };
+      window.addEventListener("mousemove", move);
+      return () => window.removeEventListener("mousemove", move);
+    },
+    { scope: root },
+  );
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-[#F0F3FA] via-[#D5DEEF] to-[#F0F3FA] pt-24"
+      ref={root}
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink pt-24"
     >
-      <canvas
-        ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full opacity-40"
-      />
+      {/* Background layers */}
+      <div className="bg-grid absolute inset-0 opacity-60" />
+      <div className="hero-orb orb-1 aurora animate-float-slow left-[8%] top-[15%] h-72 w-72 bg-steel" />
+      <div className="hero-orb orb-2 aurora left-[55%] top-[45%] h-96 w-96 bg-gold/40" />
+      <div className="hero-orb aurora bottom-[5%] left-[20%] h-64 w-64 bg-navy-600" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/0 via-ink/0 to-ink" />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-6"
-        >
-          <span className="inline-block bg-[#B1C9EF]/50 px-4 py-2 rounded-full text-sm font-semibold text-[#395886] backdrop-blur-sm border border-[#8AAEE0]/30">
-            Welcome to my digital space
+      <div className="relative z-10 mx-auto max-w-4xl px-5 text-center">
+        <div className="hero-anim mb-6 inline-flex items-center gap-2 rounded-full border border-cream/15 bg-navy/40 px-4 py-2 text-sm font-medium text-cream-dim backdrop-blur-sm">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
           </span>
-        </motion.div>
+          Available for new opportunities
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold text-[#395886] mb-4 leading-tight"
-        >
-          Full-Stack <br />
-          <span className="bg-gradient-to-r from-[#638ECB] to-[#8AAEE0] bg-clip-text text-transparent">
-            Software Engineer
-          </span>
-        </motion.h1>
+        <h1 className="hero-anim font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-cream sm:text-6xl md:text-7xl">
+          Full-Stack
+          <br />
+          <span className="text-gradient-gold">Software Engineer</span>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg md:text-xl text-[#638ECB] mb-8 max-w-2xl mx-auto"
-        >
-          Building modern, scalable web applications. Experienced with React,
-          Node.js, Angular , ASP.NET and Next.js.
-        </motion.p>
+        <p className="hero-anim mx-auto mt-6 max-w-2xl text-lg text-cream-dim md:text-xl">
+          I build modern, scalable web applications end-to-end — from
+          pixel-perfect interfaces to robust APIs. Working daily with React,
+          Node.js, Next.js, Angular & ASP.NET.
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-lg text-[#395886] mb-10 h-16"
-        >
+        <div className="hero-anim mt-4 flex h-8 items-center justify-center text-lg font-semibold text-steel-300">
           <TypeAnimation
             sequence={[
               "Crafting elegant solutions",
-              1500,
+              1600,
               "Optimizing performance",
-              1500,
+              1600,
               "Driving innovation",
-              1500,
+              1600,
               "Solving complex problems",
-              1500,
+              1600,
             ]}
             wrapper="span"
             speed={50}
             repeat={Infinity}
-            className="font-semibold text-[#638ECB]"
           />
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col md:flex-row gap-4 justify-center"
-        >
-          <Link
-            to="about"
-            smooth={true}
-            duration={500}
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#395886] text-white rounded-lg hover:bg-[#638ECB] transition-all duration-300 hover:gap-3 cursor-pointer font-semibold"
-          >
-            Explore My Work
-            <FiArrowRight size={20} />
-          </Link>
+        <div className="hero-anim mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Magnetic>
+            <button
+              onClick={() => scrollToSection("projects")}
+              className="group inline-flex items-center gap-2 rounded-full bg-gold px-8 py-4 font-semibold text-ink transition-shadow hover:shadow-glow"
+            >
+              View My Work
+              <FiArrowDownRight
+                size={20}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+              />
+            </button>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="mailto:kaveeshahq@gmail.com"
+              className="inline-flex items-center gap-2 rounded-full border border-cream/25 px-8 py-4 font-semibold text-cream transition-colors hover:border-gold hover:text-gold"
+            >
+              <FiMail size={20} />
+              Get in Touch
+            </a>
+          </Magnetic>
+        </div>
+
+        <div className="hero-anim mt-8 flex items-center justify-center gap-5">
           <a
-            href="mailto:kaveeshahiran3011@gmail.com"
-            className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#395886] text-[#395886] rounded-lg hover:bg-[#395886]/10 transition-all duration-300 font-semibold"
+            href="https://github.com/kaveeshahq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cream-dim transition-all hover:-translate-y-1 hover:text-gold"
           >
-            Get in Touch
+            <FaGithub size={22} />
           </a>
-        </motion.div>
+          <a
+            href="https://www.linkedin.com/in/kaveeshahq/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cream-dim transition-all hover:-translate-y-1 hover:text-gold"
+          >
+            <FaLinkedin size={22} />
+          </a>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="grid grid-cols-3 gap-6 mt-16 md:mt-24 max-w-md mx-auto"
-        >
-          <div className="text-center">
-            <p className="text-3xl font-bold text-[#638ECB]">10+</p>
-            <p className="text-sm text-[#395886] mt-2">Projects</p>
-          </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-[#638ECB]">1.5+</p>
-            <p className="text-sm text-[#395886] mt-2">Years Exp</p>
-          </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-[#638ECB]">5+</p>
-            <p className="text-sm text-[#395886] mt-2">Tech Stack</p>
-          </div>
-        </motion.div>
+        <div className="hero-anim mx-auto mt-16 grid max-w-lg grid-cols-3 gap-6 border-t border-cream/10 pt-8">
+          {stats.map((s) => (
+            <div key={s.label}>
+              <p className="font-display text-3xl font-bold text-gold md:text-4xl">
+                <Counter
+                  value={s.value}
+                  suffix={s.suffix}
+                  decimals={s.decimals || 0}
+                />
+              </p>
+              <p className="mt-2 text-xs text-cream-dim md:text-sm">
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-[#638ECB]"
+      <button
+        onClick={() => scrollToSection("about")}
+        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-cream-dim transition-colors hover:text-gold"
+        aria-label="Scroll to about"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
-      </motion.div>
+        <span className="text-xs uppercase tracking-widest">Scroll</span>
+        <span className="flex h-9 w-5 justify-center rounded-full border border-cream/30 p-1">
+          <span className="h-2 w-1 animate-bounce rounded-full bg-gold" />
+        </span>
+      </button>
     </section>
   );
 };

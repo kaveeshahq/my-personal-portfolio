@@ -1,0 +1,176 @@
+@use "../../styles/abstracts" as *;
+
+.footer {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 32px;
+  background: linear-gradient(180deg, transparent, rgba(0, 173, 181, 0.06));
+  border-top: 1px solid $border;
+}
+
+.inner {
+  @include container;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid $border;
+
+  @include respond(md) {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+.brand {
+  max-width: 380px;
+
+  p {
+    margin-top: 16px;
+    color: $text-muted;
+    font-size: 0.98rem;
+  }
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: $dark;
+}
+.mark {
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: $accent-gradient;
+  color: #fff;
+  box-shadow: $shadow-accent;
+}
+.dot {
+  color: $accent;
+}
+
+.linksCol,
+.connectCol {
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+}
+
+.linksCol ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  button {
+    color: $text-muted;
+    font-size: 0.96rem;
+    transition:
+      color 0.3s $ease,
+      padding-left 0.3s $ease;
+
+    &:hover {
+      color: $accent;
+      padding-left: 6px;
+    }
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+
+  a {
+    @include flex-center;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid $border;
+    color: $dark-2;
+    font-size: 1.15rem;
+    transition:
+      transform 0.3s $ease,
+      background 0.3s $ease,
+      color 0.3s $ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      background: $accent;
+      color: #fff;
+    }
+  }
+}
+
+.mail {
+  color: $text-muted;
+  font-size: 0.92rem;
+  transition: color 0.3s $ease;
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 28px;
+  font-size: 0.88rem;
+  color: $text-muted;
+
+  span {
+    color: $accent;
+    font-weight: 600;
+  }
+
+  @include respond(sm) {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Back to top */
+.toTop {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 900;
+  @include flex-center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: $accent-gradient;
+  color: #fff;
+  font-size: 1.3rem;
+  box-shadow: $shadow-accent;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.9);
+  transition:
+    opacity 0.35s $ease,
+    transform 0.35s $ease,
+    visibility 0.35s;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+}
+.toTopVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}

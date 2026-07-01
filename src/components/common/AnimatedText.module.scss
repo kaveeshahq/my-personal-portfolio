@@ -1,0 +1,23 @@
+@use "../../styles/abstracts" as *;
+
+.text {
+  display: block;
+}
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* small padding stops descenders (g, y, p) being clipped */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.inner {
+  display: inline-block;
+  will-change: transform;
+}
+
+.gradient {
+  @include gradient-text;
+}
