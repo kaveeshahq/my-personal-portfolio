@@ -20,11 +20,10 @@ const Footer = () => {
           <div className={styles.brand}>
             <button className={styles.logo} onClick={scrollToTop}>
               <span className={styles.mark}>K</span>
-              kaveesha<span className={styles.dot}>.</span>
+              kaveeshahq<span className={styles.dot}>.</span>
             </button>
             <p>
-              Frontend Developer crafting premium, interactive web experiences
-              with React, TypeScript & GSAP.
+              I craft premium, interactive web experiences with clean code and fluid motion , turning ideas into fast, accessible and memorable products using React, TypeScript , Node.js , ASP.NET , SpringBoot & More.
             </p>
           </div>
 

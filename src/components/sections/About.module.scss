@@ -6,113 +6,30 @@
 
 .inner {
   @include container;
+}
+
+/* Bio + facts */
+.body {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 70px;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
   align-items: center;
+  max-width: 1000px;
+  margin-inline: auto;
 
   @include respond(lg) {
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 40px;
   }
-}
-
-/* ---- Visual ---- */
-.visual {
-  position: relative;
-
-  @include respond(lg) {
-    max-width: 420px;
-    margin-inline: auto;
-  }
-}
-
-.frame {
-  position: relative;
-  z-index: 2;
-  border-radius: $radius-lg;
-  overflow: visible;
-
-  img {
-    width: 100%;
-    border-radius: $radius-lg;
-    box-shadow: $shadow;
-    border: 6px solid rgba(255, 255, 255, 0.85);
-  }
-}
-
-.badge {
-  position: absolute;
-  right: -22px;
-  bottom: 28px;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  padding: 16px 22px;
-  border-radius: $radius-sm;
-  background: $accent-gradient;
-  color: #fff;
-  box-shadow: $shadow-accent;
-
-  @include respond(sm) {
-    right: 0;
-  }
-}
-.badgeNum {
-  font-family: $font-display;
-  font-weight: 800;
-  font-size: 1.7rem;
-  line-height: 1;
-}
-.badgeLabel {
-  font-size: 0.8rem;
-  opacity: 0.92;
-  margin-top: 2px;
-}
-
-.accentShape {
-  position: absolute;
-  z-index: 1;
-  inset: 24px -24px -24px 24px;
-  border-radius: $radius-lg;
-  border: 2px solid rgba(0, 173, 181, 0.3);
-}
-
-/* ---- Content ---- */
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: $font-display;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: $accent;
-  margin-bottom: 16px;
-}
-.line {
-  width: 34px;
-  height: 2px;
-  background: $accent;
-  border-radius: 2px;
-}
-
-.title {
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  font-weight: 700;
-  max-width: 15ch;
-  margin-bottom: 24px;
 }
 
 .text {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 560px;
+  gap: 18px;
 
   p {
-    font-size: 1.03rem;
+    font-size: 1.06rem;
     color: $text-muted;
   }
 }
@@ -121,7 +38,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin-top: 34px;
 
   @include respond(sm) {
     grid-template-columns: 1fr;
@@ -131,20 +47,24 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 18px;
+  padding: 16px 18px;
   @include card;
-  transition: transform 0.3s $ease, box-shadow 0.3s $ease;
+  transition:
+    transform 0.3s $ease,
+    box-shadow 0.3s $ease,
+    border-color 0.3s $ease;
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow;
+    border-color: rgba(0, 173, 181, 0.3);
   }
 }
 .factIcon {
   @include flex-center;
   flex: none;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   background: rgba(0, 173, 181, 0.12);
   color: $accent;
@@ -161,36 +81,50 @@
   color: $dark;
 }
 
+/* Stats strip */
 .stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 36px;
-  margin-top: 40px;
-  padding-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 64px auto 0;
+  padding-top: 44px;
   border-top: 1px solid $border;
+  text-align: center;
+
+  @include respond(sm) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
 .stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .statNum {
   font-family: $font-display;
   font-weight: 800;
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
   @include gradient-text;
 }
 .statLabel {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: $text-muted;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
+/* CTA */
+.cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 56px;
+}
 .cv {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 40px;
-  padding: 15px 30px;
+  padding: 15px 32px;
   border-radius: 999px;
   background: $dark;
   color: #fff;
